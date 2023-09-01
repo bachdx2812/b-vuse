@@ -96,6 +96,7 @@ And the `component` for rendering the _breadcrumb_
         <h4 class="mb-0 font-size-18">{{ breadcrumb.title }}</h4>
 
         <div class="page-title-right">
+          <!-- I use vue bootrap here but you can you anything you want -->
           <b-breadcrumb class="m-0">
             <b-breadcrumb-item
               v-for="(item, i) in breadcrumb.items"
@@ -112,7 +113,7 @@ And the `component` for rendering the _breadcrumb_
 </template>
 ```
 
-So if you dont want to use the title, be my guest, just remove the ` breadcrumb.title`
+So if you dont want to use the title, be my guest, just remove the `breadcrumb.title`
 
 ##### Import
 
@@ -167,7 +168,7 @@ setBreadcrumb({});
 | -------- | ------------- | ----------------------------------------------------------------------------------- |
 | ref      | breadcrumb    | { 'title': String, 'items': [{'text: String, 'href': String, 'active': Boolean }] } |
 | function | getBreadcrumb | None                                                                                |
-| function | setBreadcrumb | None                                                                                |
+| function | setBreadcrumb | { 'title': String, 'items': [{'text: String, 'href': String, 'active': Boolean }] } |
 
 ## Contributing
 
