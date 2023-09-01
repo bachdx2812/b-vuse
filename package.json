@@ -1,0 +1,27 @@
+{
+  "name": "b-vuse",
+  "version": "1.0.0",
+  "description": "useful self made vue3 composables",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bachdx2812/b-vuse.git"
+  },
+  "keywords": [
+    "useful",
+    "vue3",
+    "composables"
+  ],
+  "author": "bachdx",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/bachdx2812/b-vuse/issues"
+  },
+  "homepage": "https://github.com/bachdx2812/b-vuse#readme",
+  "dependencies": {
+    "vue": "^3.3.4"
+  }
+}
