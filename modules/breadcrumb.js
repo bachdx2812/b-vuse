@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref } from "vue-demi";
 
 export default function useBreadcrumb() {
   const breadcrumb = ref({});

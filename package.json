@@ -1,6 +1,6 @@
 {
   "name": "@bachdx/b-vuse",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "useful self made vue3 composables",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,19 @@
     "url": "https://github.com/bachdx2812/b-vuse/issues"
   },
   "homepage": "https://github.com/bachdx2812/b-vuse#readme",
+  "dependencies": {
+    "vue-demi": "latest"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
   "devDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.0.0"
   }
 }
