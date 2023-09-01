@@ -163,11 +163,11 @@ setBreadcrumb({});
 
 #### Data and Methods
 
-| Type     | Name          |
-| -------- | ------------- |
-| ref      | breadcrumb    |
-| function | getBreadcrumb |
-| function | setBreadcrumb |
+| Type     | Name          | Attributes/Params                                                                   |
+| -------- | ------------- | ----------------------------------------------------------------------------------- |
+| ref      | breadcrumb    | { 'title': String, 'items': [{'text: String, 'href': String, 'active': Boolean }] } |
+| function | getBreadcrumb | None                                                                                |
+| function | setBreadcrumb | None                                                                                |
 
 ## Contributing
 
@@ -180,8 +180,8 @@ setBreadcrumb({});
 
 ## Authors
 
-- **Bachdx** - _Initial work_ - [JohnDoe](https://github.com/bachdx2812)
-- Hopefully more to come here
+- bachdx (https://github.com/bachdx2812)
+- Hopefully more to come here...
 
 ## License
 
