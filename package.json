@@ -1,5 +1,5 @@
 {
-  "name": "b-vuse",
+  "name": "@bachdx/b-vuse",
   "version": "1.0.0",
   "description": "useful self made vue3 composables",
   "main": "index.js",
@@ -23,5 +23,6 @@
   "homepage": "https://github.com/bachdx2812/b-vuse#readme",
   "dependencies": {
     "vue": "^3.3.4"
-  }
+  },
+  "devDependencies": {}
 }
