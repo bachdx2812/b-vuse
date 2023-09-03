@@ -1,7 +1,7 @@
 export default class QueryInput {
-  constructor(page = 1, perPage = 10) {
+  constructor(page = 1, perPage = 10, q = {}) {
     this.page = page;
     this.perPage = perPage;
-    this.q = {}; // for searching purpose
+    this.q = q; // for searching purpose
   }
 }

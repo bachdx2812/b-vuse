@@ -31,6 +31,12 @@ v16.14.0
         - [In the actual `breadcrumb` rendering `component`](#in-the-actual-breadcrumb-rendering-component)
       - [Notice:](#notice)
       - [Data and Methods](#data-and-methods)
+    - [useQuery](#usequery)
+      - [Import](#import-1)
+      - [Usage Example:](#usage-example-1)
+        - [In Pinia Store and components ( maybe )](#in-pinia-store-and-components--maybe-)
+        - [To update query ( such as page)](#to-update-query--such-as-page)
+      - [Data and Methods](#data-and-methods-1)
   - [Contributing](#contributing)
   - [Authors](#authors)
   - [License](#license)
@@ -169,6 +175,46 @@ setBreadcrumb({});
 | ref      | breadcrumb    | { 'title': String, 'items': [{'text: String, 'href': String, 'active': Boolean }] } |
 | function | getBreadcrumb | None                                                                                |
 | function | setBreadcrumb | { 'title': String, 'items': [{'text: String, 'href': String, 'active': Boolean }] } |
+
+### useQuery
+
+> The query object that most of my project use for supporting query data from server and paging support
+
+```js
+const queryInput = {
+  page: 1,
+  perPage: 10,
+  q: {}, // this should be ransacker support object
+};
+```
+
+##### Import
+
+```js
+import { useQuery } from "@bachdx/b-vuse";
+```
+
+##### Usage Example:
+
+###### In Pinia Store and components ( maybe )
+
+```js
+const { queryInput, resetQuery, updateQuery } = useQuery();
+```
+
+###### To update query ( such as page)
+
+```js
+updateQuery({ page: page });
+```
+
+#### Data and Methods
+
+| Type       | Name        | Attributes/Params                     |
+| ---------- | ----------- | ------------------------------------- |
+| QueryInput | queryInput  | { 'page': 1, 'perPage': 10, 'q': {} } |
+| function   | resetQuery  | None                                  |
+| function   | updateQuery | { 'page': 1, 'perPage': 10, 'q': {} } |
 
 ## Contributing
 
