@@ -202,6 +202,12 @@ import { useQuery } from "@bachdx/b-vuse";
 const { queryInput, resetQuery, updateQuery } = useQuery();
 ```
 
+or you can change the default params as your needs
+
+```js
+const { queryInput, resetQuery, updateQuery } = useQuery({ perPage: 15 });
+```
+
 ###### To update query ( such as page)
 
 ```js
