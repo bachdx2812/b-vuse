@@ -9,8 +9,12 @@ export default function useGoQuery({ page = 1, perPage = 10, query = {} }) {
     goQueryInput.value = new GoQueryInput(page, perPage, q);
   }
 
-  function updatePage(page) {
+  function updatePage(page, callback = null) {
     goQueryInput.pagyInput.page = page;
+
+    if (callback != null) {
+      callback();
+    }
   }
 
   function updatePerPage(perPage) {
