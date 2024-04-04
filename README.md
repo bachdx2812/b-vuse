@@ -31,12 +31,18 @@ v16.14.0
         - [In the actual `breadcrumb` rendering `component`](#in-the-actual-breadcrumb-rendering-component)
       - [Notice:](#notice)
       - [Data and Methods](#data-and-methods)
-    - [useQuery](#usequery)
+    - [useQuery ( use for Rails backend and pagy + ransack supported )](#usequery--use-for-rails-backend-and-pagy--ransack-supported-)
       - [Import](#import-1)
       - [Usage Example:](#usage-example-1)
         - [In Pinia Store and components ( maybe )](#in-pinia-store-and-components--maybe-)
         - [To update query ( such as page)](#to-update-query--such-as-page)
       - [Data and Methods](#data-and-methods-1)
+    - [useGoQuery ( use for Go backend )](#usegoquery--use-for-go-backend-)
+      - [Import](#import-2)
+      - [Usage Example:](#usage-example-2)
+        - [In Pinia Store and components ( maybe )](#in-pinia-store-and-components--maybe--1)
+        - [To update page/perPage/Query](#to-update-pageperpagequery)
+      - [Data and Methods](#data-and-methods-2)
   - [Contributing](#contributing)
   - [Authors](#authors)
   - [License](#license)
@@ -176,7 +182,7 @@ setBreadcrumb({});
 | function | getBreadcrumb | None                                                                                |
 | function | setBreadcrumb | { 'title': String, 'items': [{'text: String, 'href': String, 'active': Boolean }] } |
 
-### useQuery
+### useQuery ( use for Rails backend and pagy + ransack supported )
 
 > The query object that most of my project use for supporting query data from server and paging support
 
@@ -221,6 +227,40 @@ updateQuery({ page: page });
 | QueryInput | queryInput  | { 'page': 1, 'perPage': 10, 'q': {} } |
 | function   | resetQuery  | None                                  |
 | function   | updateQuery | { 'page': 1, 'perPage': 10, 'q': {} } |
+
+### useGoQuery ( use for Go backend )
+
+> The query object that most of my project use for supporting query data from server and paging support
+
+##### Import
+
+```js
+import { useGoQuery } from "@bachdx/b-vuse";
+```
+
+##### Usage Example:
+
+###### In Pinia Store and components ( maybe )
+
+```js
+const query = reactive({}); // this could be anything related to search key
+const { goQueryInput, updatePage } = useGoQuery({ perPage: 10, query: query });
+```
+
+###### To update page/perPage/Query
+
+```js
+updatePage(page, callbackFunction);
+```
+
+#### Data and Methods
+
+| Type         | Name          | Attributes/Params                                   |
+| ------------ | ------------- | --------------------------------------------------- |
+| GoQueryInput | goQueryInput  | { pagyInput: {'page': , 'perPage': }, 'query': {} } |
+| function     | updatePerPage | perPage                                             |
+| function     | updatePage    | page, callbackFunction                              |
+| function     | updateQuery   | { 'page': 1, 'perPage': 10, 'q': {} }               |
 
 ## Contributing
 
