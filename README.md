@@ -261,6 +261,7 @@ updatePage(page, callbackFunction);
 | function     | updatePerPage | perPage                                             |
 | function     | updatePage    | page, callbackFunction                              |
 | function     | updateQuery   | { 'page': 1, 'perPage': 10, 'q': {} }               |
+| function     | resetQuery    | callbackFunction                                    |
 
 ## Contributing
 
