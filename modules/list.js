@@ -15,8 +15,6 @@ export default function useList(
   const list = ref([]);
   const currentPage = ref(null);
   const metadata = ref({ page: currentPage.value });
-  const router = useRouter();
-  const route = useRoute();
 
   watch(currentPage, (page) => {
     updateQuery({ page: page });
