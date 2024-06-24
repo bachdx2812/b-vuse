@@ -1,8 +1,13 @@
 import { ref, watch } from "vue-demi";
-import { useRouter, useRoute } from "vue-router";
-import { useQuery } from "@bachdx/b-vuse";
+import { useQuery } from "./query";
 
-export default function useList(fetchListFnc, resultKey = "", perPage = 10) {
+export default function useList(
+  fetchListFnc,
+  resultKey = "",
+  perPage = 10,
+  route,
+  router
+) {
   const { queryInput, updateQuery } = useQuery({
     perPage: perPage,
   });
