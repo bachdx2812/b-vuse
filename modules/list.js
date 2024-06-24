@@ -91,6 +91,7 @@ export default function useList(
   }
 
   function search() {
+    updateQuery({ page: 1 });
     router.push({ query: toUrlParams() });
     fetchList();
   }
