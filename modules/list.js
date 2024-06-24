@@ -1,5 +1,5 @@
 import { ref, watch } from "vue-demi";
-import { useQuery } from "./query";
+import useQuery from "./query";
 
 export default function useList(
   fetchListFnc,
