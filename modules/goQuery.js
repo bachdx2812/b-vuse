@@ -6,7 +6,7 @@ export default function useGoQuery({ page = 1, perPage = 10, query = {} }) {
   const goQueryInput = reactive(new GoQueryInput(page, perPage, query));
 
   function resetQuery(callback = null) {
-    goQueryInput.value = new GoQueryInput(page, perPage, query);
+    goQueryInput = new GoQueryInput(page, perPage, query);
 
     if (callback != null) {
       callback();
