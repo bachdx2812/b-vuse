@@ -1,13 +1,26 @@
 import { ref, watch } from "vue-demi";
 
+/**
+ * Custom hook to manage and fetch a paginated list.
+ *
+ * @param {Function} fetchListFnc - The function to fetch the list data.
+ * @param {string} fetchKey - The main key that return from server, used for fetching the list.
+ * @param {Object} queryFormModels - The query form models for filtering the list. This will be push to server
+ * @param {string} route - The `route` object of `vue-router`.
+ * @param {Object} router - The `router` object of `vue-router`.
+ * @param {number} [perPage=10] - The number of items per page.
+ *
+ * @returns {Object} - The state and actions for managing the list.
+ */
 export default function useList(
   fetchListFnc,
   fetchKey,
   queryFormModels,
   route,
-  router
+  router,
+  perPage = 10
 ) {
-  const pagyInputDefault = { page: 1, perPage: 10 };
+  const pagyInputDefault = { page: 1, perPage: perPage };
 
   const items = ref([]);
   const metadata = ref({});
