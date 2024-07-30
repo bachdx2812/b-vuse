@@ -5,7 +5,7 @@ import { ref, watch } from "vue-demi";
  *
  * @param {Function} fetchListFnc - The function to fetch the list data.
  * @param {string} fetchKey - The main key that return from server, used for fetching the list.
- * @param {Object} queryFormModels - The query form models for filtering the list. This will be push to server
+ * @param {Object} queryFormModels - The query form models for filtering the list. This will be push to server. Can be Null
  * @param {string} route - The `route` object of `vue-router`.
  * @param {Object} router - The `router` object of `vue-router`.
  * @param {number} [perPage=10] - The number of items per page.
@@ -104,7 +104,7 @@ export default function useList(
         ? Number(params.perPage)
         : pagyInputDefault.perPage;
 
-      query.value = new queryFormModels(params);
+      query.value = queryFormModels ? new queryFormModels(params) : params;
 
       fetchList();
     },
