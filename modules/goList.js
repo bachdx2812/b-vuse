@@ -1,4 +1,4 @@
-import { ref, watch } from "vue-demi";
+import { onMounted, ref } from "vue-demi";
 
 /**
  * Custom hook to manage and fetch a paginated list.
@@ -12,23 +12,34 @@ import { ref, watch } from "vue-demi";
  *
  * @returns {Object} - The state and actions for managing the list.
  */
-export default function useList(
+export default function useList({
   fetchListFnc,
   fetchKey,
   queryFormModels,
   route,
   router,
-  perPage = 10
-) {
-  const pagyInputDefault = { page: 1, perPage: perPage };
+  perPage,
+}) {
+  const pagyInputDefault = { page: 1, perPage: perPage || 10 };
 
   const items = ref([]);
   const metadata = ref({});
   const query = ref({});
   const pagyInput = ref({ ...pagyInputDefault });
+  const orderBy = ref(null);
 
   const fetchList = async () => {
-    const res = await fetchListFnc(pagyInput.value, query.value);
+    const params = {
+      input: pagyInput.value,
+      query: query.value,
+      orderBy: orderBy.value,
+    };
+
+    const filteredParams = Object.fromEntries(
+      Object.entries(params).filter(([_, value]) => value != null)
+    );
+
+    const res = await fetchListFnc(filteredParams);
 
     items.value = res[fetchKey].collection;
     metadata.value = res[fetchKey].metadata;
@@ -43,9 +54,6 @@ export default function useList(
         res[propName] = obj[key];
       }
     }
-
-    // To change query string on params every time
-    res["z"] = Date.now();
 
     return res;
   };
@@ -81,41 +89,44 @@ export default function useList(
     return flattenQuery(query.value);
   };
 
-  const search = () => {
-    router.replace({ query: toUrlParams() });
+  const search = async () => {
+    await router.replace({ query: toUrlParams() });
+    updateQueryAndFetch();
   };
 
-  const changePage = (pagy) => {
+  const changePage = async (pagy) => {
     const params = parseQueryParams(route.query);
     query.value = { ...params, page: pagy.page };
-    router.replace({ query: toUrlParams() });
+    await router.replace({ query: toUrlParams() });
+    updateQueryAndFetch();
   };
 
-  watch(
-    () => route.query,
-    (routeQuery) => {
-      const params = parseQueryParams(routeQuery);
+  const updateQueryAndFetch = () => {
+    const params = parseQueryParams(route.query);
 
-      pagyInput.value.page = params.page
-        ? Number(params.page)
-        : pagyInputDefault.page;
+    pagyInput.value.page = params.page
+      ? Number(params.page)
+      : pagyInputDefault.page;
 
-      pagyInput.value.perPage = params.perPage
-        ? Number(params.perPage)
-        : pagyInputDefault.perPage;
+    pagyInput.value.perPage = params.perPage
+      ? Number(params.perPage)
+      : pagyInputDefault.perPage;
 
-      query.value = queryFormModels ? new queryFormModels(params) : params;
+    query.value = queryFormModels ? new queryFormModels(params) : params;
 
-      fetchList();
-    },
-    { immediate: true, deep: true }
-  );
+    fetchList();
+  };
+
+  onMounted(() => {
+    updateQueryAndFetch();
+  });
 
   return {
     items,
     metadata,
     query,
     pagyInput,
+    orderBy,
 
     fetchList,
     search,
