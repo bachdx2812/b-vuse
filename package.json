@@ -1,6 +1,6 @@
 {
   "name": "@bachdx/b-vuse",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "useful self made vue3 composables",
   "main": "index.js",
   "scripts": {
