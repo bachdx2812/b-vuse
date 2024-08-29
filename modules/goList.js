@@ -9,6 +9,7 @@ import { onMounted, ref } from "vue-demi";
  * @param {string} route - The `route` object of `vue-router`.
  * @param {Object} router - The `router` object of `vue-router`.
  * @param {number} [perPage=10] - The number of items per page.
+ * @param {Object} extraParams - The additional parameters for filtering the list. This will be push to server. Can be Null
  *
  * @returns {Object} - The state and actions for managing the list.
  */
@@ -19,6 +20,7 @@ export default function useList({
   route,
   router,
   perPage,
+  extraParams,
 }) {
   const pagyInputDefault = { page: 1, perPage: perPage || 10 };
 
@@ -33,6 +35,7 @@ export default function useList({
       input: pagyInput.value,
       query: query.value,
       orderBy: orderBy.value,
+      ...extraParams,
     };
 
     const filteredParams = Object.fromEntries(
