@@ -61,12 +61,15 @@ export default function useList({
     return res;
   };
 
-  const reset = (defaultParams = {}) => {
+  const reset = (defaultParams) => {
     query.value = {
-      ...new queryFormModels(defaultParams),
+      ...(defaultParams ? new queryFormModels(defaultParams) : {}),
       ...pagyInputDefault,
     };
+
     pagyInput.value = { ...pagyInputDefault };
+
+    search();
   };
 
   const parseQueryParams = (query) => {
@@ -97,7 +100,7 @@ export default function useList({
 
   const search = async () => {
     await router.replace({ query: toUrlParams() });
-    await updateQueryAndFetch();
+    await parseQueryAndFetch();
   };
 
   const changePage = async (pagy) => {
@@ -112,7 +115,7 @@ export default function useList({
     await search();
   };
 
-  const updateQueryAndFetch = async () => {
+  const parseQueryAndFetch = async () => {
     const params = parseQueryParams(route.query);
 
     pagyInput.value.page = params.page
@@ -131,10 +134,6 @@ export default function useList({
     query.value.perPage = pagyInput.value.perPage;
   };
 
-  onMounted(() => {
-    updateQueryAndFetch();
-  });
-
   return {
     items,
     metadata,
@@ -147,5 +146,6 @@ export default function useList({
     sort,
     changePage,
     reset,
+    parseQueryAndFetch,
   };
 }
