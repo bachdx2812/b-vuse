@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue-demi";
+import { ref } from "vue-demi";
 
 /**
  * Custom hook to manage and fetch a paginated list.
@@ -61,7 +61,7 @@ export default function useList({
     return res;
   };
 
-  const reset = (defaultParams) => {
+  const reset = async (defaultParams) => {
     query.value = {
       ...(defaultParams ? new queryFormModels(defaultParams) : {}),
       ...pagyInputDefault,
@@ -69,7 +69,7 @@ export default function useList({
 
     pagyInput.value = { ...pagyInputDefault };
 
-    search();
+    await search();
   };
 
   const parseQueryParams = (query) => {
