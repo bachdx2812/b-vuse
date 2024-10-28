@@ -61,12 +61,12 @@ export default function useList({
     return res;
   };
 
-  const reset = async (defaultParams) => {
+  const reset = async ({ defaultQuery, defaultOrder }) => {
     query.value = {
-      ...(defaultParams ? new queryFormModels(defaultParams) : {}),
+      ...(defaultQuery ? new queryFormModels(defaultQuery) : {}),
       ...pagyInputDefault,
     };
-
+    orderBy.value = defaultOrder;
     pagyInput.value = { ...pagyInputDefault };
 
     await search();
@@ -95,7 +95,7 @@ export default function useList({
   };
 
   const toUrlParams = () => {
-    return flattenQuery(query.value);
+    return flattenQuery({ ...query.value, orderBy: orderBy.value });
   };
 
   const search = async () => {
@@ -106,12 +106,6 @@ export default function useList({
   const changePage = async (pagy) => {
     const params = parseQueryParams(route.query);
     query.value = { ...params, page: pagy.page };
-    await search();
-  };
-
-  const sort = async () => {
-    const params = parseQueryParams(route.query);
-    query.value = { ...params };
     await search();
   };
 
@@ -127,6 +121,7 @@ export default function useList({
       : pagyInputDefault.perPage;
 
     query.value = queryFormModels ? new queryFormModels(params) : params;
+    orderBy.value = route.query.orderBy || orderBy.value;
 
     await fetchList();
 
@@ -143,7 +138,6 @@ export default function useList({
 
     fetchList,
     search,
-    sort,
     changePage,
     reset,
     parseQueryAndFetch,
