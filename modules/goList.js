@@ -124,9 +124,6 @@ export default function useList({
     orderBy.value = route.query.orderBy || orderBy.value;
 
     await fetchList();
-
-    query.value.page = pagyInput.value.page;
-    query.value.perPage = pagyInput.value.perPage;
   };
 
   return {
