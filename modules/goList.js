@@ -10,6 +10,7 @@ import { ref } from "vue-demi";
  * @param {Object} router - The `router` object of `vue-router`.
  * @param {number} [perPage=10] - The number of items per page.
  * @param {Object} extraParams - The additional parameters for filtering the list. This will be push to server. Can be Null
+ * @param {boolean} reflectUrl - Whether to reflect the URL with the query parameters.
  *
  * @returns {Object} - The state and actions for managing the list.
  */
@@ -21,6 +22,7 @@ export default function useList({
   router,
   perPage,
   extraParams,
+  reflectUrl = true,
 }) {
   const pagyInputDefault = { page: 1, perPage: perPage || 10 };
 
@@ -29,6 +31,7 @@ export default function useList({
   const query = ref({});
   const pagyInput = ref({ ...pagyInputDefault });
   const orderBy = ref(null);
+  const searchedQuery = ref({});
 
   const fetchList = async () => {
     const params = {
@@ -99,18 +102,23 @@ export default function useList({
   };
 
   const search = async () => {
-    await router.replace({ query: toUrlParams() });
-    await parseQueryAndFetch();
+    if (reflectUrl) {
+      await router.replace({ query: toUrlParams() });
+    }
+
+    await parseQueryAndFetch(toUrlParams());
   };
 
   const changePage = async (pagy) => {
-    const params = parseQueryParams(route.query);
-    query.value = { ...params, page: pagy.page };
+    query.value = { ...searchedQuery.value, page: pagy.page };
     await search();
   };
 
-  const parseQueryAndFetch = async () => {
-    const params = parseQueryParams(route.query);
+  const parseQueryAndFetch = async (queryParams) => {
+    let params = parseQueryParams(route.query);
+    if (!reflectUrl && queryParams) {
+      params = parseQueryParams(queryParams);
+    }
 
     pagyInput.value.page = params.page
       ? Number(params.page)
@@ -122,6 +130,9 @@ export default function useList({
 
     query.value = queryFormModels ? new queryFormModels(params) : params;
     orderBy.value = route.query.orderBy || orderBy.value;
+    searchedQuery.value = queryFormModels
+      ? new queryFormModels(params)
+      : params;
 
     await fetchList();
   };
