@@ -32,8 +32,10 @@ export default function useList({
   const pagyInput = ref({ ...pagyInputDefault });
   const orderBy = ref(null);
   const searchedQuery = ref({});
+  const fetching = ref(false);
 
   const fetchList = async () => {
+    fetching.value = true;
     const params = {
       input: pagyInput.value,
       query: query.value,
@@ -49,6 +51,7 @@ export default function useList({
 
     items.value = res[fetchKey].collection;
     metadata.value = res[fetchKey].metadata;
+    fetching.value = false;
   };
 
   const flattenQuery = (obj, parent = "", res = {}) => {
@@ -149,5 +152,6 @@ export default function useList({
     changePage,
     reset,
     parseQueryAndFetch,
+    fetching,
   };
 }
