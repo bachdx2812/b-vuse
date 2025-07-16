@@ -13,6 +13,17 @@ import { ref } from "vue-demi";
  * @param {boolean} reflectUrl - Whether to reflect the URL with the query parameters.
  *
  * @returns {Object} - The state and actions for managing the list.
+ *   @property {Ref<Array>} items - The list items.
+ *   @property {Ref<Object>} metadata - The pagination metadata.
+ *   @property {Ref<Object>} query - The current query object.
+ *   @property {Ref<Object>} pagyInput - The pagination input.
+ *   @property {Ref<any>} orderBy - The order by value.
+ *   @property {Function} fetchList - Fetches the list from the server.
+ *   @property {Function} search - Performs a search and updates the list.
+ *   @property {Function} changePage - Changes the current page.
+ *   @property {Function} reset - Resets the query and pagination.
+ *   @property {Function} parseQueryAndFetch - Parses query params and fetches the list.
+ *   @property {Ref<boolean>} fetching - Indicates if the list is being fetched.
  */
 export default function useList({
   fetchListFnc,
